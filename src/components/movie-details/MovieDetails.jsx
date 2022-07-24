@@ -9,11 +9,10 @@ const MovieDetails = () => {
 
     const [movie, setMovie] = useState([])
 
-    // console.log(id, 'id');
 
 
     useEffect(() => {
-        const movie = MoviesData.movies.filter((movie) => movie.id == id)[0]
+        const movie = MoviesData.movies.filter((movie) => movie.id === Number(id))[0]
         setMovie(movie)
     }, [id])
 
