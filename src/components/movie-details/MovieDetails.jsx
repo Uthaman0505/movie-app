@@ -15,7 +15,7 @@ const MovieDetails = () => {
     useEffect(() => {
         const movie = MoviesData.movies.filter((movie) => movie.id === id)[0]
         setMovie(movie)
-    }, [])
+    }, [id])
 
     console.log(movie);
     return (
