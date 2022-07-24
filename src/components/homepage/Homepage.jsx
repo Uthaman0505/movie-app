@@ -2,14 +2,22 @@ import './homepage.scss'
 import React, { useEffect, useState } from 'react'
 import MoviesData from '../../api/movie_db.json'
 import NoImage from '../../assets/no-image.png'
+import { Link } from 'react-router-dom'
 
 const Homepage = () => {
 
     const [getAll, setGetAll] = useState(false)
     const [movieData, setMovieData] = useState(MoviesData.movies)
     const [serachInput, setSerachInput] = useState('')
+    const [serachYear, setSerachYear] = useState('')
+    const [disableInput, setDisableInput] = useState(false)
+    const [years, setYears] = useState([...new Set(MoviesData.movies.map(item => item.year))])
 
-    // console.log(movieData, 'movie');
+    const onlyUnique = (year, index, self) => {
+        return self.indexOf(year) === index;
+    }
+
+    // console.log(years, 'years');
 
     useEffect(() => {
         const leftIcon = document.getElementsByClassName('left-btn')[0]
@@ -37,7 +45,7 @@ const Homepage = () => {
     }, [])
 
     const btnClicked = (genre) => {
-
+        setDisableInput(true)
         let filteredMovies = []
         for (let i = 0; i < MoviesData.genres.length; i++) {
             const genreBtns = document.getElementsByClassName(`${MoviesData.genres[i]}`)[0]
@@ -50,11 +58,14 @@ const Homepage = () => {
             if (MoviesData.movies[i].genres.includes(genre)) filteredMovies.push(MoviesData.movies[i])
         }
         setMovieData(filteredMovies)
+        console.log(filteredMovies, 'filtemovies');
+        setYears([...new Set(filteredMovies.map(item => item.year))])
     }
     // console.log(movieData, 'movie');
 
 
     const getAllMovies = () => {
+        setDisableInput(false)
         for (let i = 0; i < MoviesData.genres.length; i++) {
             const genreBtns = document.getElementsByClassName(`${MoviesData.genres[i]}`)[0]
             genreBtns.classList.remove('clicked-color')
@@ -64,6 +75,7 @@ const Homepage = () => {
         setGetAll(false)
         setMovieData(MoviesData.movies)
         setSerachInput('')
+        setSerachYear('')
     }
 
 
@@ -83,6 +95,27 @@ const Homepage = () => {
             for (let i = 0; i < MoviesData.movies.length; i++) {
                 if (MoviesData.movies[i].title.includes(serachInput)) filteredMovies.push(MoviesData.movies[i])
                 if (MoviesData.movies[i].actors.includes(serachInput)) filteredMovies.push(MoviesData.movies[i])
+            }
+            setMovieData(filteredMovies)
+            setYears([...new Set(filteredMovies.map(item => item.year))])
+        }
+
+        if (serachYear !== '') {
+            setGetAll(true)
+            let filteredMovies = []
+            for (let i = 0; i < MoviesData.movies.length; i++) {
+                if (MoviesData.movies[i].year.includes(serachYear)) filteredMovies.push(MoviesData.movies[i])
+            }
+            setMovieData(filteredMovies)
+        }
+
+        if (serachInput !== '' && serachYear !== '') {
+            setGetAll(true)
+            let filteredMovies = []
+            for (let i = 0; i < movieData.length; i++) {
+                // if (movieData[i].title.includes(serachInput)) filteredMovies.push(movieData[i])
+                // if (movieData[i].actors.includes(serachInput)) filteredMovies.push(movieData[i])
+                if (movieData[i].year.includes(serachYear)) filteredMovies.push(movieData[i])
             }
             setMovieData(filteredMovies)
         }
@@ -127,59 +160,53 @@ const Homepage = () => {
                     </div> : ''
                 }
 
-
-                <div className="row">
-                    <div className="form-container mt-4">
-                        <div class="mb-3">
-                            <input value={serachInput} onChange={(e) => setSerachInput(e.target.value)} type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='Movie Title / Movie Actor' />
-                        </div>
-                        <button onClick={() => submitForm()} type="submit" class="btn btn-success">Submit</button>
-
-                    </div>
-                </div>
-
-
-
-
-                <div class="row row-cols-1 row-cols-md-4 g-4 mt-4">
-                    {
-                        movieData.map((movie, index) => (
-                            <div class="col">
-                                <div class="card ">
-                                    <div className="img-container d-flex align-items-center justify-content-center bg-primary" style={{ width: '100%', height: '250px' }}>
-                                        <img src={movie.posterUrl ? movie.posterUrl : NoImage} style={{ width: '70%', height: '250px' }} class="card-img-top" alt="..." />
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">{movie.title}</h5>
-                                    </div>
-                                </div>
+                {
+                    !disableInput ? <div className="row">
+                        <div className="form-container mt-4">
+                            <div className="mb-3">
+                                <input value={serachInput} onChange={(e) => setSerachInput(e.target.value)} type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='Movie Title / Movie Actor' />
                             </div>
 
+                            <select onChange={(e) => setSerachYear(e.target.value)} class="form-select mb-4" aria-label="Default select example">
+                                <option selected>Select the year of the movie</option>
+                                {
+                                    years.map((year) => (
+                                        <option value={year}>{year}</option>
+                                    ))
+                                }
+                                {/* <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option> */}
+                            </select>
+
+
+                            <button onClick={() => submitForm()} type="submit" className="btn btn-success">Submit</button>
+
+                        </div>
+                    </div> : ''
+                }
+
+
+
+                <div className="row row-cols-1 row-cols-md-4 g-4 mt-4">
+                    {
+                        movieData.map((movie, index) => (
+                            <Link key={index} to={{ pathname: `/${movie.id}/movie-details` }}>
+                                <div className="col">
+                                    <div className="card ">
+                                        <div className="img-container d-flex align-items-center justify-content-center bg-primary" style={{ width: '100%', height: '250px' }}>
+                                            <img src={movie.posterUrl ? movie.posterUrl : NoImage} style={{ width: '70%', height: '250px' }} className="card-img-top" alt="..." />
+                                        </div>
+                                        <div className="card-body">
+                                            <h5 className="card-title">{movie.title}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Link>
                         ))
                     }
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </div>
-
-
-
-
         </>
     )
 }
