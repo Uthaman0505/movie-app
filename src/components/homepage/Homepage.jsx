@@ -13,9 +13,9 @@ const Homepage = () => {
     const [disableInput, setDisableInput] = useState(false)
     const [years, setYears] = useState([...new Set(MoviesData.movies.map(item => item.year))])
 
-    const onlyUnique = (year, index, self) => {
-        return self.indexOf(year) === index;
-    }
+    // const onlyUnique = (year, index, self) => {
+    //     return self.indexOf(year) === index;
+    // }
 
     // console.log(years, 'years');
 

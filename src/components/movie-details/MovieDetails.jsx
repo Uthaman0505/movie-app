@@ -13,7 +13,7 @@ const MovieDetails = () => {
 
 
     useEffect(() => {
-        const movie = MoviesData.movies.filter((movie) => movie.id == id)[0]
+        const movie = MoviesData.movies.filter((movie) => movie.id === id)[0]
         setMovie(movie)
     }, [])
 
