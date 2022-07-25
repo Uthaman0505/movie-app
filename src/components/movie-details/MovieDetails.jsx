@@ -9,14 +9,11 @@ const MovieDetails = () => {
 
     const [movie, setMovie] = useState([])
 
-
-
     useEffect(() => {
         const movie = MoviesData.movies.filter((movie) => movie.id === Number(id))[0]
         setMovie(movie)
     }, [id])
 
-    console.log(movie);
     return (
         <>
             <div className="container-body">
@@ -142,13 +139,8 @@ const MovieDetails = () => {
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
-
                 </div>
-
-
             </div>
         </>
     )

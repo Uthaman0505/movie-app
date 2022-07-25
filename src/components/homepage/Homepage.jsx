@@ -13,12 +13,6 @@ const Homepage = () => {
     const [disableInput, setDisableInput] = useState(false)
     const [years, setYears] = useState([...new Set(MoviesData.movies.map(item => item.year))])
 
-    // const onlyUnique = (year, index, self) => {
-    //     return self.indexOf(year) === index;
-    // }
-
-    // console.log(years, 'years');
-
     useEffect(() => {
         const leftIcon = document.getElementsByClassName('left-btn')[0]
         const rightIcon = document.getElementsByClassName('right-btn')[0]
@@ -59,8 +53,6 @@ const Homepage = () => {
         }
         setMovieData(filteredMovies)
     }
-    // console.log(movieData, 'movie');
-
 
     const getAllMovies = () => {
         setDisableInput(false)
@@ -76,7 +68,6 @@ const Homepage = () => {
         setSerachYear('')
         setYears([...new Set(MoviesData.movies.map(item => item.year))])
     }
-
 
     const scroll = (direction) => {
         const scrollBtns = document.querySelector('.genres-btn-container');
@@ -116,14 +107,11 @@ const Homepage = () => {
                 if (i === 0) {
                     tempMoviesYears.push(movieData)
                 }
-                // if (movieData[i].title.includes(serachInput)) filteredMovies.push(movieData[i])
-                // if (movieData[i].actors.includes(serachInput)) filteredMovies.push(movieData[i])
                 if (movieData[i].year.includes(serachYear)) filteredMovies.push(movieData[i])
             }
             setMovieData(filteredMovies)
         }
     }
-
 
     return (
         <>
@@ -177,14 +165,9 @@ const Homepage = () => {
                                         <option value={year}>{year}</option>
                                     ))
                                 }
-                                {/* <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option> */}
                             </select>
 
-
                             <button onClick={() => submitForm()} type="submit" className="btn btn-success">Submit</button>
-
                         </div>
                     </div> : ''
                 }
