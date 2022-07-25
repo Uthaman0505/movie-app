@@ -58,8 +58,6 @@ const Homepage = () => {
             if (MoviesData.movies[i].genres.includes(genre)) filteredMovies.push(MoviesData.movies[i])
         }
         setMovieData(filteredMovies)
-        console.log(filteredMovies, 'filtemovies');
-        setYears([...new Set(filteredMovies.map(item => item.year))])
     }
     // console.log(movieData, 'movie');
 
@@ -76,6 +74,7 @@ const Homepage = () => {
         setMovieData(MoviesData.movies)
         setSerachInput('')
         setSerachYear('')
+        setYears([...new Set(MoviesData.movies.map(item => item.year))])
     }
 
 
@@ -112,7 +111,11 @@ const Homepage = () => {
         if (serachInput !== '' && serachYear !== '') {
             setGetAll(true)
             let filteredMovies = []
+            let tempMoviesYears = []
             for (let i = 0; i < movieData.length; i++) {
+                if (i === 0) {
+                    tempMoviesYears.push(movieData)
+                }
                 // if (movieData[i].title.includes(serachInput)) filteredMovies.push(movieData[i])
                 // if (movieData[i].actors.includes(serachInput)) filteredMovies.push(movieData[i])
                 if (movieData[i].year.includes(serachYear)) filteredMovies.push(movieData[i])
@@ -167,7 +170,7 @@ const Homepage = () => {
                                 <input value={serachInput} onChange={(e) => setSerachInput(e.target.value)} type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='Movie Title / Movie Actor' />
                             </div>
 
-                            <select onChange={(e) => setSerachYear(e.target.value)} class="form-select mb-4" aria-label="Default select example">
+                            <select autoComplete='off' value={serachYear} onChange={(e) => setSerachYear(e.target.value)} class="form-select mb-4" aria-label="Default select example">
                                 <option selected>Select the year of the movie</option>
                                 {
                                     years.map((year) => (

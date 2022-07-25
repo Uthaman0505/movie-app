@@ -149,3 +149,41 @@
     flex-flow: wrap !important;
 
 }
+
+@media only screen and (max-width: 2685px) {
+    .homepage-header {
+        border-radius: 130px;
+    }
+
+    .left-background {
+        right: 1315px;
+    }
+
+    .right-background {
+        left: 1315px;
+    }
+
+    .genres-btns {
+        min-width: 106px;
+    }
+
+    .back-arrow-btn {
+        right: 17%;
+    }
+}
+
+@media only screen and (max-width: 1366px) {
+
+
+    .genres-btns {
+        min-width: 100px;
+    }
+
+    .right-background {
+        left: 1136px;
+    }
+
+    .left-background {
+        right: 1127px;
+    }
+}

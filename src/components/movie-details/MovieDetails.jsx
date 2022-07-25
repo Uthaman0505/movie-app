@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import MoviesData from '../../api/movie_db.json'
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import './movie-details.scss'
 
 const MovieDetails = () => {
@@ -24,6 +24,11 @@ const MovieDetails = () => {
                     <div className="row bg-primary d-flex justify-content-center">
                         <div className="movie-poster-container">
                             <img src={movie.posterUrl} alt="" width="100%" height="425px" />
+                        </div>
+                        <div className="back-arrow-btn">
+                            <Link to={{ pathname: `/` }}>
+                                <button className='btn btn-warning back-btn'><i className="bi bi-arrow-left-circle-fill"></i> Back to movies List</button>
+                            </Link>
                         </div>
                     </div>
 
