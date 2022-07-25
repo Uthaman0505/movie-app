@@ -194,7 +194,7 @@ const Homepage = () => {
                 <div className="row row-cols-1 row-cols-md-4 g-4 mt-4">
                     {
                         movieData.map((movie, index) => (
-                            <Link key={index} to={{ pathname: `/${movie.id}/movie-details` }}>
+                            <Link key={index} to={{ pathname: `/${movie.id}/movie-details` }} style={{ textDecoration: 'none', color: 'black' }}>
                                 <div className="col">
                                     <div className="card ">
                                         <div className="img-container d-flex align-items-center justify-content-center bg-primary" style={{ width: '100%', height: '250px' }}>
