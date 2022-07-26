@@ -180,7 +180,7 @@ const Homepage = () => {
                             <Link key={index} to={{ pathname: `/${movie.id}/movie-details` }} style={{ textDecoration: 'none', color: 'black' }}>
                                 <div className="col">
                                     <div className="card ">
-                                        <div className="img-container d-flex align-items-center justify-content-center bg-primary" style={{ width: '100%', height: '250px' }}>
+                                        <div className="img-container d-flex align-items-center justify-content-center bg-primary" style={{ width: '100%', height: '250px', borderTopLeftRadius: '5px', borderTopRightRadius: '5px' }}>
                                             <img src={movie.posterUrl ? movie.posterUrl : NoImage} style={{ width: '70%', height: '250px' }} className="card-img-top" alt="..." />
                                         </div>
                                         <div className="card-body">
