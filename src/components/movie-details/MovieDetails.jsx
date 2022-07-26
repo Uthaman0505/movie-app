@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import MoviesData from '../../api/movie_db.json'
 import { Link, useParams } from "react-router-dom";
+import NoImage from '../../assets/no-image.png'
 import './movie-details.scss'
 
 const MovieDetails = () => {
@@ -20,7 +21,7 @@ const MovieDetails = () => {
                 <div className="container">
                     <div className="row bg-primary d-flex justify-content-center">
                         <div className="movie-poster-container">
-                            <img src={movie.posterUrl} alt="" width="100%" height="425px" />
+                            <img src={movie.posterUrl ? movie.posterUrl : NoImage} alt="" width="100%" height="425px" />
                         </div>
                         <div className="back-arrow-btn">
                             <Link to={{ pathname: `/` }}>
